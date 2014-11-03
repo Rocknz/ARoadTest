@@ -1,5 +1,0 @@
-C:\Users\Mubariz\Desktop\3DDD\Buisness Center\t$m$p$$$\Buisness Center-3ddd.max
-C:\Users\Mubariz\Desktop\3DDD\Buisness Center\t$m$p$$$\MAXFILES.TXT
-G:\__Project LSB\____QEYRI YASHAYISH\__NIZAMI RAYONU\Shemi (Qapi-pencere)\max\maps\terra.jpg
-G:\__Project LSB\____QEYRI YASHAYISH\__NIZAMI RAYONU\Shemi (Qapi-pencere)\max\maps\BRK0010.jpg
-G:\3D Models -MM\Vray Materials\ev_ArchShader_2\maps\Archshaders_textures\AS2_metal_bump_05.jpg
