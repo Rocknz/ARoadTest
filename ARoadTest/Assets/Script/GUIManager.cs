@@ -14,13 +14,14 @@ public class GUIManager : MonoBehaviour {
 
 	void OnGUI () {
 		if(GUI.Button(new Rect(50, 40, 80, 80),buttonImage[0])){
-			ContentManager.GetInstance().SetMode(ContentManager.MODE.ThirdPersonView);
+			ContentManager.GetInstance().NowMode = ContentManager.MODE.ThirdPersonView;
+			Debug.Log (ContentManager.GetInstance().NowMode);
 		}
 		if(GUI.Button(new Rect(50, 130, 80, 80), buttonImage[1])){
-			ContentManager.GetInstance().SetMode(ContentManager.MODE.FirstPersonView);
+			ContentManager.GetInstance().NowMode = ContentManager.MODE.FirstPersonView;
 		}
 		if(GUI.Button(new Rect(50, 220, 80, 80), buttonImage[2])){
-			ContentManager.GetInstance().SetMode (ContentManager.MODE.DefaultMode);
+			ContentManager.GetInstance().NowMode = ContentManager.MODE.DefaultMode;
 		}
 	}
 }

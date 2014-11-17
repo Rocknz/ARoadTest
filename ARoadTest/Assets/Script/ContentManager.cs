@@ -3,15 +3,20 @@ using System.Collections;
 
 public class ContentManager{
 	private static ContentManager instance = null;
-	private enum MODE{
+	public enum MODE{
 		DefaultMode,
 		ThirdPersonView,
 		FirstPersonView
 	};
 	private MODE nowMode;
 
-	public void SetMode(MODE inputMode){
-		nowMode = inputMode;
+	public MODE NowMode{
+		set{
+			nowMode = value;
+		}
+		get{
+			return nowMode;
+		}
 	}
 	public static ContentManager GetInstance(){
 		if(instance == null){
