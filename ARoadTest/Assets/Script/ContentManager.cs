@@ -4,6 +4,7 @@ using System.Collections;
 public class ContentManager{
 	private static ContentManager instance = null;
 	public enum MODE{
+		UnTrackingMode,
 		DefaultMode,
 		ThirdPersonView,
 		FirstPersonView
