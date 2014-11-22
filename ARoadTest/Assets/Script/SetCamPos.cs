@@ -61,8 +61,8 @@ public class SetCamPos : MonoBehaviour
 	
 	public void Cam_posSet ()
 	{
-				Start_set = true;
-				CamRotateFlag = false;
-				PrevGyro = Input.acceleration;
-		}
+		Start_set = true;
+		CamRotateFlag = false;
+		PrevGyro = Input.acceleration;
+	}
 }

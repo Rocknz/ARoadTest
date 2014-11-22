@@ -13,9 +13,9 @@ public class GUIManager : MonoBehaviour {
 	private Texture[] buttonImage;
 	void Start () {
 		buttonImage = new Texture[3];
-		buttonImage[0] = Resources.Load<Texture>("button_walk");
-		buttonImage[1] = Resources.Load<Texture>("button_light");
-		buttonImage[2] = Resources.Load<Texture>("button_on");
+		buttonImage[0] = Resources.Load<Texture>("button_two");
+		buttonImage[1] = Resources.Load<Texture>("button_one");
+		buttonImage[2] = Resources.Load<Texture>("button_three");
 	}
 
 	void OnGUI () {
