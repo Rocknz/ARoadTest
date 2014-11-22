@@ -17,6 +17,8 @@ public class SplashManager : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void OnGUI () {
+		
+		Screen.orientation = ScreenOrientation.LandscapeRight;
 
 		float screenCenter = Screen.width / 2;
 		float inLoadbarLeft = screenCenter - inLoadBar.width / 2;
