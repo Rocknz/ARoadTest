@@ -25,8 +25,8 @@ public class SplashManager : MonoBehaviour {
 		float outLoadbarTop = Screen.height - 100;
 		
 		GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), splashImage);
-		GUI.DrawTexture(new Rect(outLoadbarLeft, outLoadbarTop, outLoadBar.width, outLoadBar.height), outLoadBar);
-		GUI.DrawTexture(new Rect(inLoadbarLeft + 10, inLoadbarTop + 10, inLoadBar.width * async.progress, inLoadBar.height * 0.75F), inLoadBar);
+//		GUI.DrawTexture(new Rect(outLoadbarLeft, outLoadbarTop, outLoadBar.width, outLoadBar.height), outLoadBar);
+//		GUI.DrawTexture(new Rect(inLoadbarLeft + 10, inLoadbarTop + 10, inLoadBar.width * async.progress, inLoadBar.height * 0.75F), inLoadBar);
 	}
 	IEnumerator LoadNextScene()
 	{

@@ -10,16 +10,41 @@ public class GUIManager : MonoBehaviour {
 	public GameObject CarCam;
 
 	// Use this for initialization
+	private Texture[] button_Off_Image;
+	private Texture[] button_On_Image;
 	private Texture[] buttonImage;
 	void Start () {
-		buttonImage = new Texture[3];
-		buttonImage[0] = Resources.Load<Texture>("button_two");
-		buttonImage[1] = Resources.Load<Texture>("button_one");
-		buttonImage[2] = Resources.Load<Texture>("button_three");
+		button_Off_Image = new Texture[4];
+		button_Off_Image[0] = Resources.Load<Texture>("thirdperson_off");
+		button_Off_Image[1] = Resources.Load<Texture>("firstperson_off");
+		button_Off_Image[2] = Resources.Load<Texture>("course_off");
+		button_Off_Image[3] = Resources.Load<Texture>("off");
+		button_On_Image = new Texture[4];
+		button_On_Image[0] = Resources.Load<Texture>("thirdperson_L");
+		button_On_Image[1] = Resources.Load<Texture>("firstperson_L");
+		button_On_Image[2] = Resources.Load<Texture>("course_L");
+		button_On_Image[3] = Resources.Load<Texture>("on");
 	}
 
 	void OnGUI () {
+		buttonImage = new Texture[4];
+		if(ContentManager.GetInstance().NowMode == ContentManager.MODE.ThirdPersonView)
+			buttonImage[0] = button_On_Image[0];
+		else 
+			buttonImage[0] = button_Off_Image[0];
+		if(ContentManager.GetInstance().NowMode == ContentManager.MODE.FirstPersonView)
+			buttonImage[1] = button_On_Image[1];
+		else 
+			buttonImage[1] = button_Off_Image[1];
 
+		if(ContentManager.GetInstance().NowShowPath)
+			buttonImage[2] = button_On_Image[2];
+		else 
+			buttonImage[2] = button_Off_Image[2];
+		if(ContentManager.GetInstance().NowMode == ContentManager.MODE.UnTrackingMode)
+			buttonImage[3] = button_On_Image[3];
+		else 
+			buttonImage[3] = button_Off_Image[3];
 		//3인칭 모드
 		if(GUI.Button(new Rect(50, 40, 80, 80),buttonImage[0])){
 			if(ContentManager.GetInstance().NowMode == ContentManager.MODE.DefaultMode){
@@ -75,12 +100,17 @@ public class GUIManager : MonoBehaviour {
 			Debug.Log (ContentManager.GetInstance().NowMode);
 		}
 		if(GUI.Button(new Rect(50, 220, 80, 80), buttonImage[2])){
-			if(ContentManager.GetInstance().NowMode == ContentManager.MODE.DefaultMode){
+//			if(ContentManager.GetInstance().NowMode == ContentManager.MODE.DefaultMode){
+				if(!ContentManager.GetInstance ().TrackingTarget.Equals("nothing")){
+					GameObject now = GameObject.Find (ContentManager.GetInstance().TrackingTarget);
+					now = now.transform.FindChild("Obj").FindChild("Path").gameObject;
+					now.GetComponent<Pathes>().ShowPath();
 
-			}
+				}
+//			}
 		}
 		// On/Off Mode 
-		/*
+		if(GUI.Button (new Rect(50,310,80,80), buttonImage[3])){
 		    if(ContentManager.GetInstance().NowMode == ContentManager.MODE.DefaultMode){
 				ContentManager.GetInstance().NowMode = ContentManager.MODE.UnTrackingMode;
 				ImageTargetObj.SetActive(false);
@@ -88,8 +118,6 @@ public class GUIManager : MonoBehaviour {
 				ContentManager.GetInstance().NowMode = ContentManager.MODE.DefaultMode;
 				ImageTargetObj.SetActive(true);
 			}
-			Debug.Log (ContentManager.GetInstance().NowMode);
-		*/
-
+		}
 	}
 }

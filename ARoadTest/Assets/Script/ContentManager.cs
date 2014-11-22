@@ -11,6 +11,7 @@ public class ContentManager{
 	};
 	private MODE nowMode;
 	private string trackingTarget;
+	private bool nowShowPath;
 
 	public MODE NowMode{
 		set{
@@ -28,12 +29,20 @@ public class ContentManager{
 			return trackingTarget;
 		}
 	}
-
+	public bool NowShowPath{
+		set{
+			nowShowPath = value;
+		}
+		get{
+			return nowShowPath;
+		}
+	}
 	public static ContentManager GetInstance(){
 		if(instance == null){
 			instance = new ContentManager();
 			instance.nowMode = MODE.DefaultMode;
 			instance.trackingTarget = "nothing";
+			instance.nowShowPath = false;
 		}
 		return instance;
 	}
