@@ -10,6 +10,7 @@ public class ContentManager{
 		FirstPersonView
 	};
 	private MODE nowMode;
+	private string trackingTarget;
 
 	public MODE NowMode{
 		set{
@@ -19,10 +20,20 @@ public class ContentManager{
 			return nowMode;
 		}
 	}
+	public string TrackingTarget{
+		set{
+			trackingTarget = value;
+		}
+		get{
+			return trackingTarget;
+		}
+	}
+
 	public static ContentManager GetInstance(){
 		if(instance == null){
 			instance = new ContentManager();
 			instance.nowMode = MODE.DefaultMode;
+			instance.trackingTarget = "nothing";
 		}
 		return instance;
 	}

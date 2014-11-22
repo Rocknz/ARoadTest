@@ -76,6 +76,12 @@ public class GUIManager : MonoBehaviour {
 		}
 		if(GUI.Button(new Rect(50, 220, 80, 80), buttonImage[2])){
 			if(ContentManager.GetInstance().NowMode == ContentManager.MODE.DefaultMode){
+
+			}
+		}
+		// On/Off Mode 
+		/*
+		    if(ContentManager.GetInstance().NowMode == ContentManager.MODE.DefaultMode){
 				ContentManager.GetInstance().NowMode = ContentManager.MODE.UnTrackingMode;
 				ImageTargetObj.SetActive(false);
 			}else if(ContentManager.GetInstance().NowMode == ContentManager.MODE.UnTrackingMode){
@@ -83,6 +89,7 @@ public class GUIManager : MonoBehaviour {
 				ImageTargetObj.SetActive(true);
 			}
 			Debug.Log (ContentManager.GetInstance().NowMode);
-		}
+		*/
+
 	}
 }

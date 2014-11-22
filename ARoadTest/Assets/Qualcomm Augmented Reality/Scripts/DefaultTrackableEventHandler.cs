@@ -80,8 +80,8 @@ public class DefaultTrackableEventHandler : MonoBehaviour,
         {
             component.enabled = true;
         }
-
-        Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
+		ContentManager.GetInstance().TrackingTarget = this.name;
+		Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
     }
 
 
@@ -101,7 +101,7 @@ public class DefaultTrackableEventHandler : MonoBehaviour,
         {
             component.enabled = false;
         }
-
+		ContentManager.GetInstance().TrackingTarget = "nothing";
         Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " lost");
     }
 
