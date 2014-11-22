@@ -42,9 +42,9 @@ public class GUIManager : MonoBehaviour {
 		else 
 			buttonImage[2] = button_Off_Image[2];
 		if(ContentManager.GetInstance().NowMode == ContentManager.MODE.UnTrackingMode)
-			buttonImage[3] = button_On_Image[3];
-		else 
 			buttonImage[3] = button_Off_Image[3];
+		else 
+			buttonImage[3] = button_On_Image[3];
 		//3인칭 모드
 		if(GUI.Button(new Rect(50, 40, 80, 80),buttonImage[0])){
 			if(ContentManager.GetInstance().NowMode == ContentManager.MODE.DefaultMode){
