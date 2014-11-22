@@ -4,7 +4,7 @@ using System.Collections;
 public class CarControll : MonoBehaviour {
 	// Use this for initialization
 	private const float velocity = 0.5f;
-	private const float rotateVelocity = 1.0f;
+	private const float rotateVelocity = 0.5f;
 
 	private bool Firsttouched = false;
 
@@ -26,7 +26,7 @@ public class CarControll : MonoBehaviour {
 			tTouchMode1 = tTouchMode2 = -1;			//mode initialize
 
 			if(Input.GetMouseButton(0)){
-				tTouchMode1 = CheckHandleORAccel(/*Input.GetTouch(0).position*/Input.mousePosition);
+				tTouchMode1 = CheckHandleORAccel(Input.GetTouch(0).position/*Input.mousePosition*/);
 				ControllCar(tTouchMode1);
 			}
 			if(Input.GetMouseButton(1)){
@@ -68,11 +68,14 @@ public class CarControll : MonoBehaviour {
 		//Debug.Log (PresentTouchHandlePos);
 
 		float tAngle = Vector2.Angle (basisVec, difVec);
+		Vector3 z_axis = new Vector3(0, 0, 1);
+		//Quaternion presentRotation = this.transform.rotation;
 
 		if (difVec.x < 0) {
-
+			this.transform.localEulerAngles += Quaternion.AngleAxis(tAngle*(-rotateVelocity), Vector3.up).eulerAngles;
 		}
 		else {
+			this.transform.localEulerAngles += Quaternion.AngleAxis(tAngle*(rotateVelocity), Vector3.up).eulerAngles;
 		}
 	}
 
