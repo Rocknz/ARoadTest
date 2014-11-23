@@ -4,7 +4,7 @@ using System.Collections;
 public class CarControll : MonoBehaviour {
 	// Use this for initialization
 	private const float velocity = 0.5f;
-	private const float rotateVelocity = 0.5f;
+	private const float rotateVelocity = 0.1f;
 
 	private bool Firsttouched = false;
 
@@ -14,9 +14,19 @@ public class CarControll : MonoBehaviour {
 	private int tTouchMode1;
 	private int tTouchMode2;
 
+	private Rect AccelButtonRect;
+	private Rect BackButtonRect;
+
+	public Texture AccelButton;
+	public Texture BackButton;
+
 	void Start () {
 		HandleCenter.y = 0;
 		HandleCenter.x = Screen.width / 4;
+
+		AccelButtonRect = new Rect (Screen.width-90, Screen.height-180,80,80);
+		BackButtonRect = new Rect (Screen.width-90, Screen.height-90,80,80);
+
 	}
 	
 	// Update is called once per frame
@@ -40,12 +50,14 @@ public class CarControll : MonoBehaviour {
 		}
 	}
 
-	//return accel 1, handle 0
+	//return accel 1, handle 0, back 2
 	int CheckHandleORAccel(Vector2 TouchPoint){
 		int ScreenCenter = Screen.width/2;
 
-		if (TouchPoint.x > ScreenCenter)
+		if (InRectTouch(AccelButtonRect, TouchPoint))
 						return 1;
+		else if(InRectTouch(BackButtonRect, TouchPoint))
+		        return 2;
 		else {
 			PresentTouchHandlePos = TouchPoint;
 			if(Firsttouched == false){
@@ -59,6 +71,11 @@ public class CarControll : MonoBehaviour {
 	void MoveCar(){
 		Vector3 tMove = GetModelDirection () * velocity;;
 		this.transform.position += tMove;
+	}
+
+	void BackMoving(){
+		Vector3 tMove = GetModelDirection () * velocity;;
+		this.transform.position -= tMove;
 	}
 
 	void RotateCar(){
@@ -82,14 +99,34 @@ public class CarControll : MonoBehaviour {
 	void ControllCar(int mode){
 		if (mode == 1) {
 			MoveCar ();
-		} else if (mode == 0) {
-			if(Firsttouched == true){
+		}
+		else if (mode == 0) {
+			if (Firsttouched == true) {
 				RotateCar ();
 			}
+		}
+		else if (mode == 2) {
+			BackMoving();
 		}
 	}
 
 	Vector3 GetModelDirection(){
 		return this.transform.forward;
 	}
+
+	bool InRectTouch(Rect Box, Vector2 Touchpos){
+		Vector2 tTouchPos = new Vector2 (Touchpos.x, Screen.height-Touchpos.y);
+		if(Box.x < tTouchPos.x && Box.x+Box.width > tTouchPos.x)
+			if(Box.y < tTouchPos.y && Box.y+Box.height > tTouchPos.y)
+					return true;
+
+			return false;
+	}
+
+	void OnGUI(){
+		//accel button
+		GUI.Button (AccelButtonRect, AccelButton);
+		//back or break button
+		GUI.Button (BackButtonRect, BackButton);
+		}
 }
