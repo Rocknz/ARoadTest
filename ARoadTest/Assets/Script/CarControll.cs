@@ -3,6 +3,9 @@ using System.Collections;
 
 public class CarControll : MonoBehaviour {
 	// Use this for initialization
+	public Texture AccelButton;
+	public Texture BackButton;
+
 	private const float velocity = 0.5f;
 	private const float rotateVelocity = 0.1f;
 
@@ -17,8 +20,8 @@ public class CarControll : MonoBehaviour {
 	private Rect AccelButtonRect;
 	private Rect BackButtonRect;
 
-	public Texture AccelButton;
-	public Texture BackButton;
+	private Texture steering_Wheel;
+	private float steering_Angle;
 
 	void Start () {
 		HandleCenter.y = 0;
@@ -27,6 +30,8 @@ public class CarControll : MonoBehaviour {
 		AccelButtonRect = new Rect (Screen.width-90, Screen.height-180,80,80);
 		BackButtonRect = new Rect (Screen.width-90, Screen.height-90,80,80);
 
+		steering_Wheel = Resources.Load<Texture>("steering_wheel");
+		steering_Angle = 0.0f;
 	}
 	
 	// Update is called once per frame
@@ -90,9 +95,11 @@ public class CarControll : MonoBehaviour {
 
 		if (difVec.x < 0) {
 			this.transform.localEulerAngles += Quaternion.AngleAxis(tAngle*(-rotateVelocity), Vector3.up).eulerAngles;
+			steering_Angle = tAngle * (-rotateVelocity);
 		}
 		else {
 			this.transform.localEulerAngles += Quaternion.AngleAxis(tAngle*(rotateVelocity), Vector3.up).eulerAngles;
+			steering_Angle = tAngle * (rotateVelocity);
 		}
 	}
 
@@ -124,9 +131,14 @@ public class CarControll : MonoBehaviour {
 	}
 
 	void OnGUI(){
+		//Draw Handle;
+		Matrix4x4 matrixBackup = GUI.matrix;
+		GUIUtility.RotateAroundPivot(steering_Angle,new Vector2(Screen.width/4,Screen.height));
+		GUI.DrawTexture (new Rect(0,Screen.height-Screen.width/4,Screen.width/2,Screen.width/2),steering_Wheel);
+		GUI.matrix = matrixBackup;
 		//accel button
 		GUI.Button (AccelButtonRect, AccelButton);
 		//back or break button
 		GUI.Button (BackButtonRect, BackButton);
-		}
+	}
 }
