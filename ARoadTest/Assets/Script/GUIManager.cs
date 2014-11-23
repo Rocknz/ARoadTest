@@ -63,9 +63,10 @@ public class GUIManager : MonoBehaviour {
 		if(GUI.Button(new Rect(50, 130, 80, 80), buttonImage[1])){
 			if(ContentManager.GetInstance().NowMode == ContentManager.MODE.FirstPersonView){
 				ContentManager.GetInstance().NowMode = ContentManager.MODE.ThirdPersonView;
-				ImageTargetObj.SetActive(true);
+				ImageTargetObj.GetComponent<DefaultTrackableEventHandler>().enabled = true;
+				//ImageTargetObj.SetActive(true);
 				CarObj.SetActive(true);
-				ObjGroup.transform.parent = ImageTargetObj.transform;
+				//ObjGroup.transform.parent = ImageTargetObj.transform;
 				ARCam.SetActive(true);
 				CarCam.SetActive(false);
 			}
@@ -74,13 +75,14 @@ public class GUIManager : MonoBehaviour {
 				CarCam.transform.position = ARCam.transform.position;
 				CarCam.transform.rotation = ARCam.transform.rotation;
 				CarObj.SetActive(true);
-				ObjGroup.transform.parent = this.transform.parent;
+				//ObjGroup.transform.parent = this.transform.parent;
 				CarCam.SetActive(true);
 				SetCamPos tempScript = (SetCamPos)CarCam.GetComponent(typeof(SetCamPos));
 				tempScript.Cam_posSet();
-				ObjGroup.transform.parent = this.transform.parent;
-				
-				ImageTargetObj.SetActive(false);
+				//ObjGroup.transform.parent = this.transform.parent;
+
+				ImageTargetObj.GetComponent<DefaultTrackableEventHandler>().enabled = false;
+				//ImageTargetObj.SetActive(false);
 				ARCam.SetActive(false);
 			}
 			else if(ContentManager.GetInstance().NowMode == ContentManager.MODE.DefaultMode){
@@ -88,13 +90,14 @@ public class GUIManager : MonoBehaviour {
 				CarCam.transform.position = ARCam.transform.position;
 				CarCam.transform.rotation = ARCam.transform.rotation;
 				CarObj.SetActive(true);
-				ObjGroup.transform.parent = this.transform.parent;
+				//ObjGroup.transform.parent = this.transform.parent;
 				CarCam.SetActive(true);
 				SetCamPos tempScript = (SetCamPos)CarCam.GetComponent(typeof(SetCamPos));
 				tempScript.Cam_posSet();
-				ObjGroup.transform.parent = this.transform.parent;
+				//ObjGroup.transform.parent = this.transform.parent;
 
-				ImageTargetObj.SetActive(false);
+				ImageTargetObj.GetComponent<DefaultTrackableEventHandler>().enabled = false;
+				//ImageTargetObj.SetActive(false);
 				ARCam.SetActive(false);
 			}
 			Debug.Log (ContentManager.GetInstance().NowMode);

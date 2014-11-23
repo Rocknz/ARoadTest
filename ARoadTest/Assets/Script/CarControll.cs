@@ -6,10 +6,11 @@ public class CarControll : MonoBehaviour {
 	public Texture AccelButton;
 	public Texture BackButton;
 
-	private const float velocity = 0.5f;
+	private const float velocity = 0.25f;
 	private const float rotateVelocity = 0.1f;
 
 	private bool Firsttouched = false;
+	private float firstTheta;
 
 	private Vector2 PresentTouchHandlePos;
 	private Vector2 HandleCenter;
@@ -23,6 +24,9 @@ public class CarControll : MonoBehaviour {
 	private Texture steering_Wheel;
 	private float steering_Angle;
 
+	private Vector3 PrevPos;
+	private Vector3 PrevAngle;
+
 	void Start () {
 		HandleCenter.y = 0;
 		HandleCenter.x = Screen.width / 4;
@@ -32,10 +36,19 @@ public class CarControll : MonoBehaviour {
 
 		steering_Wheel = Resources.Load<Texture>("steering_wheel");
 		steering_Angle = 0.0f;
+
+		PrevPos = this.transform.localPosition;
+		PrevAngle = this.transform.localEulerAngles;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		//roatation & position fix
+		this.transform.localPosition = new Vector3 (this.transform.localPosition.x, 0.0f, this.transform.localPosition.z);;
+		this.transform.localEulerAngles = new Vector3 (0.0f, this.transform.localEulerAngles.y, 0.0f);;
+		this.GetComponent<Rigidbody> ().velocity = Vector3.zero;
+		this.GetComponent<Rigidbody> ().angularVelocity = Vector3.zero;
+
 		//핸들 온으로 변경
 		if (ContentManager.GetInstance ().NowMode == ContentManager.MODE.FirstPersonView || ContentManager.GetInstance ().NowMode == ContentManager.MODE.ThirdPersonView) {
 			tTouchMode1 = tTouchMode2 = -1;			//mode initialize
@@ -66,6 +79,12 @@ public class CarControll : MonoBehaviour {
 		else {
 			PresentTouchHandlePos = TouchPoint;
 			if(Firsttouched == false){
+				Vector2 difVec = TouchPoint - HandleCenter;
+				Vector2 basisVec = new Vector2 (0, 1);
+				difVec.Normalize ();
+				firstTheta = Vector2.Angle (basisVec, difVec);
+				if(difVec.x < 0)	firstTheta *= -1;
+
 				Firsttouched = true;
 			}
 
@@ -94,13 +113,13 @@ public class CarControll : MonoBehaviour {
 		//Quaternion presentRotation = this.transform.rotation;
 
 		if (difVec.x < 0) {
-			this.transform.localEulerAngles += Quaternion.AngleAxis(tAngle*(-rotateVelocity), Vector3.up).eulerAngles;
-			steering_Angle = tAngle * (-rotateVelocity);
+			tAngle *= -1;
+			//this.transform.localEulerAngles += Quaternion.AngleAxis(tAngle*(-rotateVelocity), Vector3.up).eulerAngles;
+			//steering_Angle = tAngle * (-rotateVelocity);
 		}
-		else {
-			this.transform.localEulerAngles += Quaternion.AngleAxis(tAngle*(rotateVelocity), Vector3.up).eulerAngles;
-			steering_Angle = tAngle * (rotateVelocity);
-		}
+		tAngle -= firstTheta;
+		steering_Angle = tAngle;
+		this.transform.localEulerAngles += Quaternion.AngleAxis(tAngle * rotateVelocity, Vector3.up).eulerAngles;
 	}
 
 	void ControllCar(int mode){
