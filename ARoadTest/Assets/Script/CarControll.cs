@@ -63,6 +63,7 @@ public class CarControll : MonoBehaviour {
 			}
 
 			if(tTouchMode1 != 0 && tTouchMode2 != 0){
+				steering_Angle = 0.0f;
 				Firsttouched = false;
 			}
 		}
@@ -73,7 +74,7 @@ public class CarControll : MonoBehaviour {
 		int ScreenCenter = Screen.width/2;
 
 		if (InRectTouch(AccelButtonRect, TouchPoint))
-						return 1;
+				return 1;
 		else if(InRectTouch(BackButtonRect, TouchPoint))
 		        return 2;
 		else {
