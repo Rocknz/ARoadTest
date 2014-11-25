@@ -8,11 +8,14 @@ public class GUIManager : MonoBehaviour {
 	public GameObject ARCam;
 	public GameObject ObjGroup;
 	public GameObject CarCam;
+	public GameObject ImgPlane;
 
 	// Use this for initialization
 	private Texture[] button_Off_Image;
 	private Texture[] button_On_Image;
 	private Texture[] buttonImage;
+
+	private GameObject tObjGroup;
 	void Start () {
 		button_Off_Image = new Texture[4];
 		button_Off_Image[0] = Resources.Load<Texture>("thirdperson_off");
@@ -63,10 +66,11 @@ public class GUIManager : MonoBehaviour {
 		if(GUI.Button(new Rect(50, 130, 80, 80), buttonImage[1])){
 			if(ContentManager.GetInstance().NowMode == ContentManager.MODE.FirstPersonView){
 				ContentManager.GetInstance().NowMode = ContentManager.MODE.ThirdPersonView;
-				ImageTargetObj.GetComponent<DefaultTrackableEventHandler>().enabled = true;
-				//ImageTargetObj.SetActive(true);
+				ImageTargetObj.SetActive(true);
 				CarObj.SetActive(true);
+				Destroy((Object)tObjGroup);
 				//ObjGroup.transform.parent = ImageTargetObj.transform;
+				ImgPlane.SetActive(false);
 				ARCam.SetActive(true);
 				CarCam.SetActive(false);
 			}
@@ -75,14 +79,14 @@ public class GUIManager : MonoBehaviour {
 				CarCam.transform.position = ARCam.transform.position;
 				CarCam.transform.rotation = ARCam.transform.rotation;
 				CarObj.SetActive(true);
-				//ObjGroup.transform.parent = this.transform.parent;
 				CarCam.SetActive(true);
 				SetCamPos tempScript = (SetCamPos)CarCam.GetComponent(typeof(SetCamPos));
 				tempScript.Cam_posSet();
-				//ObjGroup.transform.parent = this.transform.parent;
-
-				ImageTargetObj.GetComponent<DefaultTrackableEventHandler>().enabled = false;
-				//ImageTargetObj.SetActive(false);
+				ImgPlane.SetActive(true);
+				tObjGroup = (GameObject)Instantiate(ObjGroup);
+				tObjGroup.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+				tObjGroup.transform.parent = ImgPlane.transform;
+				ImageTargetObj.SetActive(false);
 				ARCam.SetActive(false);
 			}
 			else if(ContentManager.GetInstance().NowMode == ContentManager.MODE.DefaultMode){
@@ -90,14 +94,14 @@ public class GUIManager : MonoBehaviour {
 				CarCam.transform.position = ARCam.transform.position;
 				CarCam.transform.rotation = ARCam.transform.rotation;
 				CarObj.SetActive(true);
-				//ObjGroup.transform.parent = this.transform.parent;
 				CarCam.SetActive(true);
 				SetCamPos tempScript = (SetCamPos)CarCam.GetComponent(typeof(SetCamPos));
 				tempScript.Cam_posSet();
-				//ObjGroup.transform.parent = this.transform.parent;
-
-				ImageTargetObj.GetComponent<DefaultTrackableEventHandler>().enabled = false;
-				//ImageTargetObj.SetActive(false);
+				ImgPlane.SetActive(true);
+				tObjGroup = (GameObject)Instantiate(ObjGroup);
+				tObjGroup.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+				tObjGroup.transform.parent = ImgPlane.transform;
+				ImageTargetObj.SetActive(false);
 				ARCam.SetActive(false);
 			}
 			Debug.Log (ContentManager.GetInstance().NowMode);
