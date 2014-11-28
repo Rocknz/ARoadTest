@@ -112,7 +112,6 @@ public class GUIManager : MonoBehaviour {
 					GameObject now = GameObject.Find (ContentManager.GetInstance().TrackingTarget);
 					now = now.transform.FindChild("Obj").FindChild("Path").gameObject;
 					now.GetComponent<Pathes>().ShowPath();
-
 				}
 //			}
 		}
