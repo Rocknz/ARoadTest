@@ -84,6 +84,7 @@ public class GUIManager : MonoBehaviour {
 				tempScript.Cam_posSet();
 				ImgPlane.SetActive(true);
 				tObjGroup = (GameObject)Instantiate(ObjGroup);
+				tObjGroup.transform.name = "Obj";
 				tObjGroup.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 				tObjGroup.transform.parent = ImgPlane.transform;
 				ImageTargetObj.SetActive(false);
@@ -99,6 +100,7 @@ public class GUIManager : MonoBehaviour {
 				tempScript.Cam_posSet();
 				ImgPlane.SetActive(true);
 				tObjGroup = (GameObject)Instantiate(ObjGroup);
+				tObjGroup.transform.name = "Obj";
 				tObjGroup.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 				tObjGroup.transform.parent = ImgPlane.transform;
 				ImageTargetObj.SetActive(false);
@@ -108,11 +110,18 @@ public class GUIManager : MonoBehaviour {
 		}
 		if(GUI.Button(new Rect(50, 220, 80, 80), buttonImage[2])){
 //			if(ContentManager.GetInstance().NowMode == ContentManager.MODE.DefaultMode){
+			if(ContentManager.GetInstance ().NowMode != ContentManager.MODE.FirstPersonView){
 				if(!ContentManager.GetInstance ().TrackingTarget.Equals("nothing")){
 					GameObject now = GameObject.Find (ContentManager.GetInstance().TrackingTarget);
 					now = now.transform.FindChild("Obj").FindChild("Path").gameObject;
 					now.GetComponent<Pathes>().ShowPath();
 				}
+			}
+			else{
+				GameObject now = GameObject.Find ("ImagePlane");
+				now = now.transform.FindChild("Obj").FindChild("Path").gameObject;
+				now.GetComponent<Pathes>().ShowPath ();
+			}
 //			}
 		}
 		// On/Off Mode 

@@ -101,7 +101,7 @@ public class DefaultTrackableEventHandler : MonoBehaviour,
         {
             component.enabled = false;
         }
-		ContentManager.GetInstance().TrackingTarget = "nothing";
+//		ContentManager.GetInstance().TrackingTarget = "nothing";
         Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " lost");
     }
 

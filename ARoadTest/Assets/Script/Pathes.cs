@@ -6,7 +6,7 @@ public class Pathes : MonoBehaviour {
 	private YieldInstruction waiting;
 	// Use this for initialization
 	void Start () {
-		length = 36;
+		length = 64;
 		waiting = new WaitForSeconds(0.1f);
 	}
 	public void ShowPath(){
@@ -17,6 +17,12 @@ public class Pathes : MonoBehaviour {
 	private void show(string name){
 		if(this.transform.FindChild(name) != null)
 		this.transform.FindChild(name).gameObject.SetActive(true);
+		Vector3 now = this.transform.FindChild(name).gameObject.transform.localEulerAngles;
+		if(ContentManager.GetInstance().NowMode == ContentManager.MODE.FirstPersonView)
+			now = new Vector3(-10.0f,now.y,now.z);
+		else 
+			now = new Vector3(0.0f,now.y,now.z);
+		this.transform.FindChild(name).gameObject.transform.localEulerAngles = now;
 	}
 	private void shade(string name){
 		this.transform.FindChild(name).gameObject.SetActive(false);
