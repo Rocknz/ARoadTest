@@ -15,6 +15,9 @@ public class GUIManager : MonoBehaviour {
 	private Texture[] button_On_Image;
 	private Texture[] buttonImage;
 
+	private Vector3 InitialPos;
+	private Vector3 Initialrot;
+
 	private GameObject tObjGroup;
 	void Start () {
 		button_Off_Image = new Texture[4];
@@ -27,6 +30,9 @@ public class GUIManager : MonoBehaviour {
 		button_On_Image[1] = Resources.Load<Texture>("firstperson_L");
 		button_On_Image[2] = Resources.Load<Texture>("course_L");
 		button_On_Image[3] = Resources.Load<Texture>("on");
+
+		InitialPos = new Vector3(-3.921664f, 0.0f, -4.373088f);
+		Initialrot = new Vector3(0.0f, 447.8162f, 0.0f);
 	}
 
 	void OnGUI () {
@@ -54,6 +60,8 @@ public class GUIManager : MonoBehaviour {
 				ContentManager.GetInstance().NowMode = ContentManager.MODE.ThirdPersonView;
 				CarObj.SetActive(true);
 				CarCam.SetActive(false);
+				CarObj.transform.localPosition = InitialPos;
+				CarObj.transform.localEulerAngles = Initialrot;
 			}
 			else if(ContentManager.GetInstance().NowMode == ContentManager.MODE.ThirdPersonView){
 				ContentManager.GetInstance().NowMode = ContentManager.MODE.DefaultMode;
