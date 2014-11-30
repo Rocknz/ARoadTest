@@ -76,6 +76,8 @@ public class GUIManager : MonoBehaviour {
 				ContentManager.GetInstance().NowMode = ContentManager.MODE.ThirdPersonView;
 				ImageTargetObj.SetActive(true);
 				CarObj.SetActive(true);
+				CarObj.transform.localPosition = tObjGroup.transform.FindChild("Car").localPosition;
+				CarObj.transform.localEulerAngles = tObjGroup.transform.FindChild("Car").localEulerAngles;
 				Destroy((Object)tObjGroup);
 				//ObjGroup.transform.parent = ImageTargetObj.transform;
 				ImgPlane.SetActive(false);
@@ -134,7 +136,7 @@ public class GUIManager : MonoBehaviour {
 		}
 		// On/Off Mode 
 		if(GUI.Button (new Rect(50,310,80,80), buttonImage[3])){
-		    if(ContentManager.GetInstance().NowMode == ContentManager.MODE.DefaultMode){
+			if(ContentManager.GetInstance().NowMode == ContentManager.MODE.DefaultMode || ContentManager.GetInstance().NowMode == ContentManager.MODE.FirstPersonView){
 				ContentManager.GetInstance().NowMode = ContentManager.MODE.UnTrackingMode;
 				ImageTargetObj.SetActive(false);
 			}else if(ContentManager.GetInstance().NowMode == ContentManager.MODE.UnTrackingMode){
